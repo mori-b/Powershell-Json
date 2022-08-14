@@ -232,7 +232,7 @@ Function ConvertFrom-JSON {
     			}
     			'"' {
 					if($script:stringState -eq $true -and $script:valueState -eq $false -and $script:stateArray[$script:stateArray.Count-1] -eq "d") {
-                        ' | Add-Member -Passthru NoteProperty "'
+                        ' | Add-Member -Passthru NoteProperty -Name "'
                     }
                     else { '"' }
     			}
@@ -401,7 +401,7 @@ Function ConvertFrom-JSON {
             # such that we can differentiate between escape backslashes and regular backslashes.
             $temp = parse $_.Replace("true", '$true').Replace("false", '$false')
             #Write-Host "temp: $temp"
-            $result += $temp.Replace("\\", "\").Replace('@ESCAPED_QUOTE_PLACEHOLDER@', '`"')
+            $result += $temp.Replace("\\", "\").Replace('@ESCAPED_QUOTE_PLACEHOLDER@', '`"').Replace('“','')
         }
     }
 
